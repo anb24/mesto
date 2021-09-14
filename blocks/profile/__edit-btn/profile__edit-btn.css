@@ -8,10 +8,9 @@
   background-size: 10px;
   background-repeat: no-repeat;
   background-color: #000000;
-  position: absolute;
-  top: 77px;
-  right: 356px;
   cursor: pointer;
+  grid-column: 2/2;
+  margin-left: 18px;
 }
 
 .profile__edit-btn:hover {
@@ -21,27 +20,17 @@
 
 @media (max-width: 890px) {
   .profile__edit-btn {
-    right: 178px;
+    margin-left: 0;
   }
 }
 
 @media (max-width: 590px) {
   .profile__edit-btn {
-    top: 15px;
-    right: 88px;
-    width: 25px;
-    height: 25px;
-    border-radius: 2px;
-  }
-}
-
-@media (max-width: 390px) {
-  .profile__edit-btn {
     width: 18px;
     height: 18px;
     border-radius: 0;
     background-size: 7.5px;
-    top: 196px;
-    right: 38px;
+    margin-left: 10px;
   }
 }
+

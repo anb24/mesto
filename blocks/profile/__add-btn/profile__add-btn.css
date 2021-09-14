@@ -4,14 +4,12 @@
   border-radius: 2px;
   width: 150px;
   height: 50px;
+  margin-top: 35px;
   background-image: url(../../../images/profile/Vector\ plus.png);
   background-position: center;
   background-size: 22px;
   background-repeat: no-repeat;
   background-color: #000000;
-  position: absolute;
-  top: 75px;
-  right: 0;
   cursor: pointer;
 }
 
@@ -24,6 +22,7 @@
   .profile__add-btn {
     width: 75px;
     height: 25px;
+    margin-top: 41px;
     background-size: 11px;
     border: 1px solid #FFFFFF;
   }
@@ -31,16 +30,11 @@
 
 @media (max-width: 590px) {
   .profile__add-btn {
-    top: 15px;
-  }
-}
-
-@media (max-width: 390px) {
-  .profile__add-btn {
-    position: relative;
     width: 282px;
     height: 50px;
     background-size: 16px;
     border: 2px solid #FFFFFF;
+    margin-top: 36px;
   }
 }
+

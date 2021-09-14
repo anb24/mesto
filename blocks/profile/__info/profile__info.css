@@ -1,6 +1,6 @@
 .profile__info {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  align-items: center;
   padding-top: 22px;
   padding-left: 30px;
   width: 100%;
@@ -8,9 +8,10 @@
   cursor: default;
 }
 
-@media (max-width: 390px) {
+@media (max-width: 590px) {
   .profile__info {
     padding-top: 26px;
     padding-left: 0;
+    justify-content: center;
   }
 }

@@ -6,9 +6,7 @@
   box-sizing: border-box;
   width: 22px;
   height: 19px;
-  position: absolute;
-  top: 31px;
-  right: 30px;
+  margin-right: 30px;
   background-color: white;
   cursor: pointer;
 }
