@@ -15,10 +15,3 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-.element__title:hover {
-  font-size: 18px;
-  cursor: help;
-  transition-delay: 0.2s;
-  transition: 1s;
-}

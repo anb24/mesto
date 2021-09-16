@@ -1,16 +1,18 @@
 const popup = document.querySelector('.popup');
-const popupOpenBtn = document.querySelector('.profile__open-popup');
+const popupOpenBtn = document.querySelector('.profile__edit-btn_open');
 const popupCloseBtn = popup.querySelector('.popup__close');
 const page = document.querySelector('.page');
-let like = document.querySelector('.element__like');
+const leadProfileName = document.querySelector('.profile__name');
+const leadProfileDescription = document.querySelector('.profile__description');
+
+let formElement = popup.querySelector('.popup__content');
+let nameInput = formElement.querySelector('.popup__text_user-name');
+let jobInput = formElement.querySelector('.popup__text_comment');
 
 function popupToggle() {
-  popup.classList.toggle('popup__opened');
-  page.classList.toggle('page__no-scroll');
-}
-
-function likeToggle() {
-  like.classList.toggle('element__like_active');
+  popup.classList.toggle('popup_opened');
+  page.classList.toggle('page_no-scroll');
+  setPopupInputValue();
 }
 
 function clickOverlay(event) {
@@ -19,39 +21,37 @@ function clickOverlay(event) {
   }
 }
 
-like.addEventListener('click', likeToggle);
+function setPopupInputValue() {
+  nameInput.value = leadProfileName.textContent;
+  jobInput.value = leadProfileDescription.textContent;
+}
+
+function setNodeTextValue() {
+  leadProfileName.textContent = nameInput.value;
+  leadProfileDescription.textContent = jobInput.value;
+
+}
+
+function formSubmitHandler (evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    setNodeTextValue();
+    popupToggle(); // После сохранения, закрывает popup.
+}
+
 popup.addEventListener('click', clickOverlay);
 popupOpenBtn.addEventListener('click', popupToggle);
 popupCloseBtn.addEventListener('click', popupToggle);
 
+formElement.addEventListener('submit', formSubmitHandler);
 
-// function popupReset() {
-//   nameInput.textContent = document.querySelector('.profile__name');
-//   jobInput.textContent = document.querySelector('.profile__info');
+
+
+// Тут делал ЛАЙК, но он чёт только на первую кнопку (наверное не .querySelector):
+
+// let like = document.querySelector('.element__like');
+
+// function likeToggle() {
+//   like.classList.toggle('element__like_active');
 // }
 
-// profileButton.addEventListener('click', popupOpened, popupReset);
-
-
-// let formElement = popup.querySelector('.profile__name');
-// // Находим поля формы в DOM
-// let nameInput = // Воспользуйтесь инструментом .querySelector()
-// let jobInput = // Воспользуйтесь инструментом .querySelector()
-
-// // Обработчик «отправки» формы, хотя пока
-// // она никуда отправляться не будет
-// function formSubmitHandler (evt) {
-//     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//                                                 // Так мы можем определить свою логику отправки.
-//                                                 // О том, как это делать, расскажем позже.
-
-//     // Получите значение полей jobInput и nameInput из свойства value
-
-//     // Выберите элементы, куда должны быть вставлены значения полей
-
-//     // Вставьте новые значения с помощью textContent
-// }
-
-// // Прикрепляем обработчик к форме:
-// // он будет следить за событием “submit” - «отправка»
-// formElement.addEventListener('submit', formSubmitHandler);
+// like.addEventListener('click', likeToggle);

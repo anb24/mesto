@@ -1,12 +1,12 @@
 .element__like {
-  background-image: url(../../../images/elements/Vector_like.png);
-  background-size: 19px;
+  background-image: url(../../../images/elements/Vector_like.svg);
   border: none;
   background-repeat: no-repeat;
   box-sizing: border-box;
   width: 22px;
   height: 19px;
-  margin-right: 30px;
+  padding: 0;
+  margin-right: 19px;
   background-color: white;
   cursor: pointer;
 }

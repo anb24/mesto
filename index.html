@@ -10,8 +10,7 @@
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img src="./images/header/logo.png" class="header__logo" alt="логотип Mesto Russia">
-      <div class="header__line"></div>
+      <img src="./images/header/logo.svg" class="header__logo" alt="логотип Mesto Russia">
     </header>
     <main class="content">
       <section class="profile">
@@ -19,10 +18,10 @@
         <div class="profile__content">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-btn profile__open-popup"></button>
+            <button type="button" class="profile__edit-btn profile__edit-btn_open" aria-label="Ред."></button>
             <p class="profile__description">Исследователь океана</p>
           </div>
-          <button class="profile__add-btn"></button>
+          <button type="button" class="profile__add-btn" aria-label="Добавить"></button>
         </div>
       </section>
       <section class="elements">
@@ -30,7 +29,7 @@
           <img src="./images/elements/baikal.jpg" class="element__image" alt="озеро Байкал">
           <div class="element__group">
             <h2 class="element__title">Байкал</h2>
-            <button class="element__like"></button>
+            <button type="submit" class="element__like"></button>
           </div>
         </article>
         <article class="element">
@@ -74,19 +73,17 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
   </div>
-  <section class="popup">
+  <div class="popup">
     <div class="popup__container">
-      <img src="./images/popup/exit.png" alt="Закрыть" class="popup__close">
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <div class="popup__content">
-        <p class="popup__text">Жак-Ив Кусто</p>
-        <div class="popup__line"></div>
-        <p class="popup__text">Исследователь океана</p>
-        <div class="popup__line"></div>
-      </div>
-      <button class="popup__save-btn">Сохранить</button>
+      <form class="popup__content">
+        <input type="text" name="user" required class="popup__text popup__text_user-name">
+        <input type="text" name="comment" class="popup__text popup__text_comment">
+        <button type="submit" class="popup__save-btn">Сохранить</button>
+      </form>
     </div>
-  </section>
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
