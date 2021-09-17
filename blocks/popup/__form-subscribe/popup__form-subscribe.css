@@ -1,11 +1,11 @@
-.popup__content {
+.popup__form-subscribe {
   margin-top: 24px;
   border: none;
   padding: 0;
 }
 
 @media (max-width: 520px) {
-  .popup__content {
+  .popup__form-subscribe {
     margin-top: 45px;
   }
 }
