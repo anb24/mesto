@@ -9,14 +9,16 @@ const popupCardCloseBtn = addCardPopup.querySelector('.popup__close');
 const elementCardPhoto = addCardPopup.querySelector('.popup__form');
 const photoElements = page.querySelector('.elements');
 const elementPopup = page.querySelector('.popup_type_img');
+const popupImgTitle = elementPopup.querySelector('.popup__title-photo');
 const popupImage = page.querySelector('.popup_type_img');
+const popupOpenPhoto = document.querySelector('.popup__card-photo');
 const closeImage = popupImage.querySelector('.popup__close');
 const leadProfileName = document.querySelector('.profile__name');
 const leadProfileDescription = document.querySelector('.profile__description');
 const namePhotoNewCard = document.getElementById('popupNamePhoto');
 const linkPhotoNewCard = document.getElementById('popupLinkPhoto');
-let nameInput = formElement.querySelector('.popup__text_type_name');
-let jobInput = formElement.querySelector('.popup__text_type_comment');
+const nameInput = formElement.querySelector('.popup__text_type_name');
+const jobInput = formElement.querySelector('.popup__text_type_comment');
 //массив фотографий мест
 const initialCards = [
   {
@@ -78,16 +80,14 @@ function openPopupEdit() {
 //кнопка "добавить"
 function openPopupAddCards() {
   openPopup(addCardPopup);
-  setPopupInputValue();
 }
 //открыть(увеличить) картинку
 function openPopupImage(element) {
-  const photoCard = document.querySelector('.popup__card-photo');
-  elementPopup.querySelector('.popup__title-photo').textContent = element.name;
-  photoCard.setAttribute('src', element.link);
+  popupImgTitle.textContent = element.name;
+  popupOpenPhoto.setAttribute('src', element.link);
   openPopup(elementPopup);
 }
-//закрыть попап
+//закрыть(активный) попап
 function closePopup() {
   const activeModal = page.querySelector('.popup_opened');
   if (activeModal) {
