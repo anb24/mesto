@@ -80,6 +80,8 @@ function openPopupEdit() {
 //кнопка "добавить"
 function openPopupAddCards() {
   openPopup(addCardPopup);
+  const submitButton = addCardPopup.querySelector('.popup__save-btn');
+  toggleButtonState(submitButton, false, validationConfig);
 }
 //открыть(увеличить) картинку
 function openPopupImage(element) {
@@ -95,8 +97,15 @@ function closePopup() {
   }
   page.classList.remove('page_no-scroll');
 }
+//закрыть(активный) попап по оверлей
 function clickOverlay(event) {
   if (event.target === event.currentTarget) {
+    closePopup();
+  }
+}
+//закрыть(активный) попап по 'Esc'
+function pushEsc(evt) {
+  if (evt.keyCode == 27) {
     closePopup();
   }
 }
@@ -141,14 +150,15 @@ function setNodeTextValue() {
   leadProfileName.textContent = nameInput.value;
   leadProfileDescription.textContent = jobInput.value;
 }
-profilePopup.addEventListener('click', clickOverlay);
 btnOpenPopupEdit.addEventListener('click', openPopupEdit);
-popupCloseBtn.addEventListener('click', closePopup);
-addCardPopup.addEventListener('click', clickOverlay);
 btnAddNewCard.addEventListener('click', openPopupAddCards);
+popupCloseBtn.addEventListener('click', closePopup);
 popupCardCloseBtn.addEventListener('click', closePopup);
-elementPopup.addEventListener('click', clickOverlay);
 closeImage.addEventListener('click', closePopup);
+profilePopup.addEventListener('click', clickOverlay);
+elementPopup.addEventListener('click', clickOverlay);
+addCardPopup.addEventListener('click', clickOverlay);
+page.addEventListener('keydown', pushEsc);
 formElement.addEventListener('submit', formSubmitHandler);
 elementCardPhoto.addEventListener('submit', createNewCardPhoto);
 defaultPhoto()
