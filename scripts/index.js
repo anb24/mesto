@@ -1,18 +1,16 @@
 const page = document.querySelector('.page');
 const btnOpenPopupEdit = page.querySelector('.profile__edit-btn_open');
 const btnAddNewCard = page.querySelector('.profile__add-btn');
+const popups = document.querySelectorAll('.popup');
 const profilePopup = document.querySelector('.popup_type_edit');
-const popupCloseBtn = profilePopup.querySelector('.popup__close');
 const formElement = profilePopup.querySelector('.popup__form');
 const addCardPopup = page.querySelector('.popup_type_card');
-const popupCardCloseBtn = addCardPopup.querySelector('.popup__close');
 const elementCardPhoto = addCardPopup.querySelector('.popup__form');
 const photoElements = page.querySelector('.elements');
 const elementPopup = page.querySelector('.popup_type_img');
 const popupImgTitle = elementPopup.querySelector('.popup__title-photo');
 const popupImage = page.querySelector('.popup_type_img');
 const popupOpenPhoto = document.querySelector('.popup__card-photo');
-const closeImage = popupImage.querySelector('.popup__close');
 const leadProfileName = document.querySelector('.profile__name');
 const leadProfileDescription = document.querySelector('.profile__description');
 const namePhotoNewCard = document.getElementById('popupNamePhoto');
@@ -71,6 +69,7 @@ function defaultPhoto() {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   page.classList.add('page_no-scroll');
+  page.addEventListener('keydown', pushEsc);
 }
 //кнопка "редактировать"
 function openPopupEdit() {
@@ -96,16 +95,11 @@ function closePopup() {
     activeModal.classList.remove('popup_opened')
   }
   page.classList.remove('page_no-scroll');
-}
-//закрыть(активный) попап по оверлей
-function clickOverlay(event) {
-  if (event.target === event.currentTarget) {
-    closePopup();
-  }
+  page.removeEventListener('keydown', pushEsc);
 }
 //закрыть(активный) попап по 'Esc'
 function pushEsc(evt) {
-  if (evt.keyCode == 27) {
+  if (evt.key == 'Escape') {
     closePopup();
   }
 }
@@ -150,15 +144,19 @@ function setNodeTextValue() {
   leadProfileName.textContent = nameInput.value;
   leadProfileDescription.textContent = jobInput.value;
 }
+//закрыть попап (обработчик)
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup)
+      }
+  })
+})
 btnOpenPopupEdit.addEventListener('click', openPopupEdit);
 btnAddNewCard.addEventListener('click', openPopupAddCards);
-popupCloseBtn.addEventListener('click', closePopup);
-popupCardCloseBtn.addEventListener('click', closePopup);
-closeImage.addEventListener('click', closePopup);
-profilePopup.addEventListener('click', clickOverlay);
-elementPopup.addEventListener('click', clickOverlay);
-addCardPopup.addEventListener('click', clickOverlay);
-page.addEventListener('keydown', pushEsc);
 formElement.addEventListener('submit', formSubmitHandler);
 elementCardPhoto.addEventListener('submit', createNewCardPhoto);
 defaultPhoto()
