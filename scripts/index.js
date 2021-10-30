@@ -1,3 +1,6 @@
+import Card from './Card.js'
+import { validationConfig, FormValidator } from './FormValidator.js'
+
 const page = document.querySelector('.page');
 const btnOpenPopupEdit = page.querySelector('.profile__edit-btn_open');
 const btnAddNewCard = page.querySelector('.profile__add-btn');
@@ -7,10 +10,6 @@ const formElement = profilePopup.querySelector('.popup__form');
 const addCardPopup = page.querySelector('.popup_type_card');
 const elementCardPhoto = addCardPopup.querySelector('.popup__form');
 const photoElements = page.querySelector('.elements');
-const elementPopup = page.querySelector('.popup_type_img');
-const popupImgTitle = elementPopup.querySelector('.popup__title-photo');
-const popupImage = page.querySelector('.popup_type_img');
-const popupOpenPhoto = document.querySelector('.popup__card-photo');
 const leadProfileName = document.querySelector('.profile__name');
 const leadProfileDescription = document.querySelector('.profile__description');
 const namePhotoNewCard = document.getElementById('popupNamePhoto');
@@ -44,26 +43,19 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-//перезаписать карточки (замена свёрстаных на массив) + слушатели
-function createCard(data) {
-  const cardTemplate = page.querySelector('#card-template').content;
-  const photoCard = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardImage = photoCard.querySelector('.element__image')
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-  cardImage.addEventListener('click', function() {
-    openPopupImage(data);
-  });
-  photoCard.querySelector('.element__like').addEventListener('click', like);
-  photoCard.querySelector('.element__delete').addEventListener('click', deleteCardPhoto);
-  photoCard.querySelector('.element__title').textContent = data.name;
-  return photoCard;
-}
+// //запустить валидацию
+const validateEdit = new FormValidator(validationConfig, '.popup_type_edit');
+const validateCard = new FormValidator(validationConfig, '.popup_type_card');
+validateEdit.enableValidation();
+validateCard.enableValidation();
+
 //установить по умолчанию фотки из массива
-function defaultPhoto() {
-  initialCards.forEach((item) => {
-    photoElements.append(createCard(item));
-  });
+initialCards.forEach((item) => {
+  photoElements.append(createCard(item));
+});
+function createCard(item) {
+  const cardElement = new Card(item).generateCard();
+  return cardElement;
 }
 // открыть попап
 function openPopup(popup) {
@@ -80,13 +72,7 @@ function openPopupEdit() {
 function openPopupAddCards() {
   openPopup(addCardPopup);
   const submitButton = addCardPopup.querySelector('.popup__save-btn');
-  toggleButtonState(submitButton, false, validationConfig);
-}
-//открыть(увеличить) картинку
-function openPopupImage(element) {
-  popupImgTitle.textContent = element.name;
-  popupOpenPhoto.setAttribute('src', element.link);
-  openPopup(elementPopup);
+  validateCard._toggleButtonState(submitButton, false, validationConfig);
 }
 //закрыть(активный) попап
 function closePopup() {
@@ -98,10 +84,12 @@ function closePopup() {
   page.removeEventListener('keydown', pushEsc);
 }
 //закрыть(активный) попап по 'Esc'
-function pushEsc(evt) {
-  if (evt.key == 'Escape') {
-    closePopup();
-  }
+function pushEsc(popup) {
+  page.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  })
 }
 //сохранить данные профиля
 function formSubmitHandler (evt) {
@@ -120,21 +108,6 @@ function createNewCardPhoto(evt) {
   photoElements.prepend(newCardPhoto);
   evt.currentTarget.reset();
   closePopup();
-}
-//удалить карточку с фото
-const deleteCardPhoto = (evt) => {
-  evt.preventDefault();
-  const target = evt.target;
-  const selectedCard = evt.currentTarget.closest('.element');
-  if (target.classList.contains('element__delete')) {
-    selectedCard.remove();
-  }
-}
-//поставить/убрать лайк
-const like = (evt) => {
-  evt.preventDefault();
-  const target = evt.target;
-  target.classList.toggle('element__like_active');
 }
 function setPopupInputValue() {
   nameInput.value = leadProfileName.textContent;
@@ -159,4 +132,3 @@ btnOpenPopupEdit.addEventListener('click', openPopupEdit);
 btnAddNewCard.addEventListener('click', openPopupAddCards);
 formElement.addEventListener('submit', formSubmitHandler);
 elementCardPhoto.addEventListener('submit', createNewCardPhoto);
-defaultPhoto()
