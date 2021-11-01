@@ -9,6 +9,7 @@ const profilePopup = document.querySelector('.popup_type_edit');
 const formElement = profilePopup.querySelector('.popup__form');
 const addCardPopup = page.querySelector('.popup_type_card');
 const elementCardPhoto = addCardPopup.querySelector('.popup__form');
+const imagePopup = page.querySelector('.popup_type_img');
 const photoElements = page.querySelector('.elements');
 const leadProfileName = document.querySelector('.profile__name');
 const leadProfileDescription = document.querySelector('.profile__description');
@@ -54,7 +55,7 @@ initialCards.forEach((item) => {
   photoElements.append(createCard(item));
 });
 function createCard(item) {
-  const cardElement = new Card(item).generateCard();
+  const cardElement = new Card(item, '#card-template', handleImageClick).generateCard();
   return cardElement;
 }
 // открыть попап
@@ -62,6 +63,12 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   page.classList.add('page_no-scroll');
   page.addEventListener('keydown', pushEsc);
+}
+function handleImageClick(data) {
+  imagePopup.querySelector('.popup__title-photo').textContent = data.name;
+  imagePopup.querySelector('.popup__card-photo').src = data.link;
+  imagePopup.querySelector('.popup__card-photo').alt = data.name;
+  openPopup(imagePopup);
 }
 //кнопка "редактировать"
 function openPopupEdit() {
@@ -71,25 +78,21 @@ function openPopupEdit() {
 //кнопка "добавить"
 function openPopupAddCards() {
   openPopup(addCardPopup);
-  const submitButton = addCardPopup.querySelector('.popup__save-btn');
-  validateCard._toggleButtonState(submitButton, false, validationConfig);
 }
 //закрыть(активный) попап
 function closePopup() {
   const activeModal = page.querySelector('.popup_opened');
   if (activeModal) {
     activeModal.classList.remove('popup_opened')
+    page.classList.remove('page_no-scroll');
+    page.removeEventListener('keydown', pushEsc);
   }
-  page.classList.remove('page_no-scroll');
-  page.removeEventListener('keydown', pushEsc);
 }
 //закрыть(активный) попап по 'Esc'
-function pushEsc(popup) {
-  page.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  })
+function pushEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup();
+  }
 }
 //сохранить данные профиля
 function formSubmitHandler (evt) {
