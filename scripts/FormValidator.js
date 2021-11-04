@@ -28,13 +28,14 @@ class FormValidator {
     errorElement.textContent = '';
     inputElement.classList.remove(this._config.inputErrorClass);
   }
-// //очистка ошибок и управление кнопкой:
-//   resetValidation = () => {
-//     this._toggleButtonState(); //управляем кнопкой
-//     this._inputsList.forEach((inputElement) => {
-//       this._hideError(inputElement) //очищаем ошибки
-//     });
-//   }
+//очистка ошибок и управление кнопкой:
+  resetValidation = () => {
+    this._toggleButtonState(); //управляем кнопкой
+    this._inputsList.forEach((inputElement) => {
+      const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+      this._hideError(errorElement, inputElement) //очищаем ошибки
+    });
+  }
 //проверить корректность ввода данных:
   _checkInputValidity = (inputElement) => {
     const isInputNotValid = !inputElement.validity.valid;

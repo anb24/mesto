@@ -74,10 +74,12 @@ function handleImageClick(data) {
 function openPopupEdit() {
   openPopup(profilePopup);
   setPopupInputValue();
+  validateEdit.resetValidation();
 }
 //кнопка "добавить"
 function openPopupAddCards() {
   openPopup(addCardPopup);
+  validateCard.resetValidation();
 }
 //закрыть(активный) попап
 function closePopup() {
