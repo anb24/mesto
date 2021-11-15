@@ -1,16 +1,16 @@
 export default class Card {
-  constructor(data, cardTemplate, handlerImageClick) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
-    this._handlerImageClick = handlerImageClick;
     this._cardTemplate = cardTemplate;
-  }
+    this.handleCardClick = handleCardClick;
+  };
   _getTemplate() {
     // забираем разметку из HTML и клонируем элемент
     const cardElement = document.querySelector(this._cardTemplate).content.querySelector('.element').cloneNode(true);
     // вернём DOM-элемент карточки
     return cardElement;
-  }
+  };
 //слушатели:
   _setEventListeners() {
     this._element.querySelector('.element__delete').addEventListener('click', () => {
@@ -21,20 +21,20 @@ export default class Card {
     });
 
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._handlerImageClick({
-        name: this._name,
+      this.handleCardClick({
         link: this._link,
+        name: this._name
       });
     });
-  }
+  };
 //удаление:
   _clickDeleteCard() {
     this._element.remove();
-  }
+  };
 //лайк:
   _clickLike() {
     this._likeButton.classList.toggle('element__like_active');
-  }
+  };
 //создание карточек:
   generateCard() {
     this._element = this._getTemplate();
@@ -44,5 +44,5 @@ export default class Card {
     this._element.querySelector('.element__image').alt = this._name;
     this._likeButton = this._element.querySelector('.element__like');
     return this._element;
-  }
+  };
 }
