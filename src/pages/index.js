@@ -115,9 +115,9 @@ const popupEdit = new PopupWithForm(profilePopup, (data) => {
 popupEdit.setEventListeners();
 //кнопка "редактировать"
 function openPopupEdit() {
-  popupEdit.open();
   setPopupInputValue();
   validateEdit.resetValidation();
+  popupEdit.open();
 }
 function setPopupInputValue() {
   const userInfoData = profileInfo.getUserInfo();

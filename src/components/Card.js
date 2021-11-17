@@ -30,6 +30,7 @@ export default class Card {
 //удаление:
   _clickDeleteCard() {
     this._element.remove();
+    //this._element = null;
   };
 //лайк:
   _clickLike() {
