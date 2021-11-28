@@ -14,7 +14,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/profile/image.jpg')%>" class="profile__avatar" alt="Аватарка">
+        <div class="profile__avatar-container">
+          <!-- <img src="<%=require('./images/profile/image.jpg')%>" class="profile__avatar" alt="Аватарка"> -->
+          <img src="#" class="profile__avatar" alt="Аватарка">
+        </div>
         <div class="profile__content">
           <div class="profile__info">
             <h1 class="profile__name"></h1>
@@ -30,6 +33,27 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
   </div>
+
+  <div class="popup popup_type_edit-avatar">
+    <div class="popup__container">
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name = "subscribeForm" class="popup__form" novalidate>
+        <input
+          id="popupLinkPhoto"
+          class="popup__text popup__text_type_comment"
+          required
+          type="url"
+          autocomplete="off"
+          name="link"
+          placeholder="Ссылка на фото профиля"
+        >
+        <span id="popupLinkPhoto-error" class="popup__error"></span>
+        <button type="submit" class="popup__save-btn">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_edit">
     <div class="popup__container">
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
@@ -63,6 +87,7 @@
       </form>
     </div>
   </div>
+
   <div class="popup popup_type_card">
     <div class="popup__container">
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
@@ -94,6 +119,17 @@
       </form>
     </div>
   </div>
+
+  <div class="popup popup_type_card-delete">
+    <div class="popup__container">
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form name = "subscribeForm" class="popup__form" novalidate></form>
+        <button type="submit" class="popup__save-btn popup__delete">Да</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_img" id="card-img">
     <div class="popup__container popup__container_type_image">
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
@@ -107,7 +143,10 @@
       <img src="#" class="element__image" alt="фото">
       <div class="element__group">
         <h2 class="element__title"></h2>
-        <button type="button" class="element__like" aria-label="Нравится"></button>
+        <div class="element__box-likes">
+          <button type="button" class="element__like" aria-label="Нравится"></button>
+          <p class="element__sum-likes"></p>
+        </div>
       </div>
     </article>
   </template>
