@@ -21,4 +21,4 @@ Html Css JavaScript
 
 **Ссылка GitHub**
 
-* [Ссылка на GitHub](https://anb24.github.io/mesto/index.html)
+* [Ссылка на GitHub](https://anb24.github.io/mesto)
