@@ -18,4 +18,11 @@ export default class PopupWithSubmit extends Popup {
       this._handlerSubmit();
     })
   }
+
+  // defaultDelete() {
+  //   this._submitBtn.textContent = `Да`;
+  // }
+  // startDelete() {
+  //   this._submitBtn.textContent = `Удаление...`;
+  // }
 }
