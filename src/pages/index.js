@@ -226,8 +226,8 @@ function cardDelete(card) {
   popupCardDelete.setFormSubmit(() => {
     api.deleteCard(card.cardId)
       .then(() => {
-        console.log(card)
-        card.clickCardDelete();
+        //console.log(card)
+        card.clickCardDelete(card.cardId);
         popupCardDelete.close();
       })
       .catch((err) => {
