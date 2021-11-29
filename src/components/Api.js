@@ -1,15 +1,13 @@
-function response(res) {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res}`);
-}
-
 export default class Api {
   constructor({url, headers}) {
     this._url = url;
     this._headers = headers;
   }
+  _response(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res}`);
+  }
 
   setAvatar(data) {
-    //console.log(data)
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -17,16 +15,15 @@ export default class Api {
         avatar: data.link
       })
     })
-    .then(response)
+    .then(this._response)
   }
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
     })
-      .then(response)
+      .then(this._response)
   }
   setUser(data) {
-    //console.log(inputValue);
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -35,14 +32,14 @@ export default class Api {
         about: data.about
       })
     })
-    .then(response)
+    .then(this._response)
   }
 
   getCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
     })
-      .then(response)
+      .then(this._response)
   }
   setNewCard(data) {
     return fetch(`${this._url}/cards`, {
@@ -53,27 +50,34 @@ export default class Api {
         link: data.link
       })
     })
-      .then(response)
+      .then(this._response)
   }
   setCardLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'PUT',
       headers: this._headers,
     })
-    .then(response)
+    .then(this._response)
   }
   removeCardLike(id) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(response)
+    .then(this._response)
+  }
+  changeCardLike(id, like) {
+    return fetch(`${this._url}/cards/likes/${id}`, {
+      method: like ? 'DELETE' : 'PUT',
+      headers: this._headers,
+    })
+    .then(this._response)
   }
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(response)
+    .then(this._response)
   }
 }

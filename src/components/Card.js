@@ -12,7 +12,6 @@ export default class Card {
     this._handleCardDelete = handleCardDelete;
     this._dataCheckId = data.dataCheckId;
     this._dataOwnerId = data.owner._id;
-    //console.log('Карточка:', data);
   };
   _getTemplate() {
     // забираем разметку из HTML и клонируем элемент
@@ -51,12 +50,18 @@ export default class Card {
   };
 //лайк:
 like() {
-  return this._likes.some(user => user._id === this._dataCheckId);
+  return Boolean(this._likes.find((data) => {
+    return data._id == this._dataCheckId
+  }))
+  // return this._like;
 }
 setLike(data) {
-  //console.log(data);
-  this._likes = data;
+  this._likes = data.likes;
+  this._element.querySelector('.element__sum-likes').textContent = data.likes.length;
   this._clickLike();
+  // this._like = data.likes.filter((data) => {
+  //   return data._id == this._dataCheckId
+  // }).length > 0;
   }
 
 _clickLike() {
@@ -71,10 +76,16 @@ _clickLike() {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+    this._elementImage = this._element.querySelector('.element__image');
     this._element.querySelector('.element__title').textContent = this._name;
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
     this._likeButton = this._element.querySelector('.element__like');
+    if(this.like()) {
+      this._elementLikeBtn.classList.add('element__like_active');
+    } else {
+      this._elementLikeBtn.classList.remove('element__like_active');
+    }
     this._element.querySelector('.element__sum-likes').textContent = this._numberLikes;
     this._getAccessDelete();
     return this._element;
